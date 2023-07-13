@@ -20,7 +20,7 @@ pipeline{
                 
                 script{
                     
-                    sh 'mvn test'
+                    bat 'mvn test'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline{
                 
                 script{
                     
-                    sh 'mvn verify -DskipUnitTests'
+                    bat 'mvn verify -DskipUnitTests'
                 }
             }
         }
@@ -52,7 +52,7 @@ pipeline{
                     
                     withSonarQubeEnv(credentialsId: 'sonar-api') {
                         
-                        sh 'mvn clean package sonar:sonar'
+                        bat 'mvn clean package sonar:sonar'
                     }
                    }
                     
