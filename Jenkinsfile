@@ -97,7 +97,20 @@ pipeline{
                     }
                 }
             }
-                    
+              stage('Docker Image Build'){
+
+            steps{
+
+                script {
+                    bat 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                    bat 'docker image tag $JOB_NAME:v1.$BUILD_ID vishalkalchuri/$JOB_NAME:v1.$BUILD_ID'
+                    bat 'docker image tag $JOB_NAME:v1.$BUILD_ID vishalkalchuri/$JOB_NAME:latest'
+                }
+            }
         }
+
+       
+        
+    }
         
 }
