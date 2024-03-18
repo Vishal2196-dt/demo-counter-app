@@ -64,9 +64,9 @@ jobs:
           SONAR_API_TOKEN: ${{ secrets.SONAR_API_TOKEN }}
 
       - name: Set Nexus Credentials
-        env:
-          NEXUS_USERNAME: ${{ env.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ env.NEXUS_PASSWORD }}
+        run: |
+          echo "NEXUS_USERNAME=${{ env.NEXUS_USERNAME }}" >> $GITHUB_ENV
+          echo "NEXUS_PASSWORD=${{ env.NEXUS_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Read Project Version
         id: read_version
