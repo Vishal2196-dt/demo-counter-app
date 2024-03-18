@@ -37,9 +37,9 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Use Maven 3
-        uses: maven/maven-action@v3
+        uses: maven/setup-java@v1
         with:
-          maven: '3'
+          maven: '3.6'
 
       - name: Set SonarQube API Token
         run: |
