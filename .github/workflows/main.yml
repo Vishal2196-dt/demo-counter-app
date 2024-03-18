@@ -1,3 +1,5 @@
+
+
 name: CI
 
 on:
@@ -75,8 +77,12 @@ jobs:
         # Define Nexus Repository based on Version
       - name: Set Nexus Repository
         run: |
-          echo "::set-output name=nexus_repo::${{ steps.read_version.outputs.version  startsWith '-SNAPSHOT'  ? 'javaapp-snapshot' : 'javaapp-release' }}"
-
+           - name: Set Nexus Repository
+        run: |
+          if [[ ${{ steps.read_version.outputs.version }} =~ /-SNAPSHOT$/ ]]; then
+            echo "::set-output name=nexus_repo::javaapp-snapshot"
+          else
+            echo "::set-output name=nexus_repo::javaapp-release"
       - name: Upload WAR to Nexus
         uses: nitzsche/action-nexus@v2.1.0
         with:
@@ -97,18 +103,3 @@ jobs:
         run: |
           docker image build -t ${{ github.repository_name }}:v1.${GITHUB_RUN_ID} .
           docker tag ${{ github.repository_name }}:v1.${GITHUB_RUN_ID} vishalkalchuri/${{ github.repository_name }}:v1.${GITHUB_RUN_ID}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
