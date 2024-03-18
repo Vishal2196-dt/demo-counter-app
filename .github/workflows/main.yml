@@ -1,40 +1,114 @@
-# This is a basic workflow to help you get started with Actionshwhbw
-
 name: CI
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ main ]
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    # Checkout Code
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    # JDK Setup (using cache)
+    - name: Set up JDK Cache
+      uses: actions/cache@v3
+      with:
+        path: /usr/local/java
+        key: <span class="math-inline">\{\{ runner\.os \}\}\-jdk\-</span>{{ hashFiles('pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-jdk-
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project
-      - name: java version
-        run: java -version
-      - name: maven version
-        run: mvn --version
-      - name: python version
-        run: python --version
-      - name: docker version
-        run: docker -v
-      - name: terrafrom version
-        run: terraform --version
-      
+    - name: Use JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'  # Adjust version as needed
+        cache: 'maven'
+
+    # Maven Setup
+    - name: Set up Maven Cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: <span class="math-inline">\{\{ runner\.os \}\}\-maven\-</span>{{ hashFiles('pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Use Maven 3
+      uses: maven/maven-action@v3
+      with:
+        maven: '3'
+
+    # SonarQube Credentials (using secrets)
+    - name: Set SonarQube API Token
+      env:
+        SONAR_API_TOKEN: ${{ secrets.SONAR_API_TOKEN }}
+
+    # Unit Testing
+    - name: Run Unit Tests
+      run: mvn test
+
+    # Integration Testing
+    - name: Run Integration Tests
+      run: mvn verify -DskipUnitTests
+
+    # Maven Build
+    - name: Build with Maven
+      run: mvn clean install
+
+    # Static Code Analysis
+    - name: Run SonarQube Analysis
+      run: |
+        mvn clean package sonar:sonar -Dsonar.projectKey=your-project-key -Dsonar.sources=.  # Replace with your project key
+        echo "SonarQube analysis completed"
+
+    # Quality Gate Status (using secrets)
+    - name: Wait for SonarQube Quality Gate
+      run: |
+        sonar-scanner -Dsonar.login=$SONAR_API_TOKEN -Dsonar.qualitygate.wait=true
+      env:
+        SONAR_API_TOKEN: ${{ secrets.SONAR_API_TOKEN }}
+
+    # Nexus Repository Credentials (using environment variables)
+    - name: Set Nexus Credentials
+      env:
+        NEXUS_USERNAME: ${{ env.NEXUS_USERNAME }}
+        NEXUS_PASSWORD: ${{ env.NEXUS_PASSWORD }}
+
+    # Read Maven Version
+    - name: Read Project Version
+      id: read_version
+      run: |
+        mvn help:property -Dexpression=project.version | grep version | awk '{print <span class="math-inline">NF\}'
+output\: version
+\# Define Nexus Repository based on Version
+\- name\: Set Nexus Repository
+run\: \|
+echo "\:\:set\-output name\=nexus\_repo\:\:</span>(( <span class="math-inline">\{\{ steps\.read\_version\.outputs\.version \}\} \=\~ /\-SNAPSHOT</span>/ )) ? 'javaapp-snapshot' : 'javaapp-realese')"
+      id: set_nexus_repo
+
+    # Upload WAR File to Nexus
+    - name: Upload WAR to Nexus
+      uses: nitzsche/action-nexus@v2.1.0  # Adjust version if needed
+      with:
+        serverUrl: ${{ env.NEXUS_URL }}  # Replace with your Nexus URL
+        repository: ${{ steps.set_nexus_repo.outputs.nexus_repo }}
+        username: ${{ env.NEXUS_USERNAME }}
+        password: ${{ env.NEXUS_PASSWORD }}
+        file: target/Uber.jar
+        version: ${{ steps.read_version.outputs.version }}
+
+    # Docker Hub Login (using docker/login action)
+    - name: Login to Docker Hub
+      uses: docker/login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Docker Image Build and Tag
+    - name: Build Docker Image
+      run: |
+        docker image build -t ${{ github.repository_name }}:v1.$GITHUB_RUN_ID .
+        docker tag ${{ github.repository_name }}:v1.<span class="math-inline">GITHUB\_RUN\_ID vishalkalchuri/</span>{{ github.repository_
