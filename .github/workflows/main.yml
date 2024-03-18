@@ -77,8 +77,6 @@ jobs:
         # Define Nexus Repository based on Version
       - name: Set Nexus Repository
         run: |
-           - name: Set Nexus Repository
-        run: |
           if [[ ${{ steps.read_version.outputs.version }} =~ /-SNAPSHOT$/ ]]; then
             echo "::set-output name=nexus_repo::javaapp-snapshot"
           else
