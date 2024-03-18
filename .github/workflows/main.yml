@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -73,11 +73,9 @@ jobs:
         run: |
           mvn help:property -Dexpression=project.version | grep version | awk '{print $NF}'
         # Define Nexus Repository based on Version
-
       - name: Set Nexus Repository
         run: |
-          # Corrected line using the `contains` function:
-          echo "::set-output name=nexus_repo::${{ steps.read_version.outputs.version  contains '-SNAPSHOT'  ? 'javaapp-snapshot' : 'javaapp-release' }}"
+          echo "::set-output name=nexus_repo::${{ steps.read_version.outputs.version  startsWith '-SNAPSHOT'  ? 'javaapp-snapshot' : 'javaapp-release' }}"
 
       - name: Upload WAR to Nexus
         uses: nitzsche/action-nexus@v2.1.0
@@ -99,3 +97,18 @@ jobs:
         run: |
           docker image build -t ${{ github.repository_name }}:v1.${GITHUB_RUN_ID} .
           docker tag ${{ github.repository_name }}:v1.${GITHUB_RUN_ID} vishalkalchuri/${{ github.repository_name }}:v1.${GITHUB_RUN_ID}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
