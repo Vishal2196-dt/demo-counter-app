@@ -12,11 +12,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
       
-      - name: Set up JDK and Maven
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
-          maven-version: '3'
+          java-version: '17' # Specify your desired Java version here
+          distribution: 'adopt' # Use 'adopt' distribution for OpenJDK
+
+      - name: Install Maven
+        run: |
+          sudo apt-get update
+          sudo apt-get install maven -y
+
 
       - name: Unit Testing
         run: mvn test
