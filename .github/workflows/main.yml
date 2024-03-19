@@ -39,6 +39,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
+      - name: Ping SonarQube server
+        run: |
+          ping ${{ secrets.SONAR_HOST_URL }}
+
       - name: Quality Gate Status
         run: |
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar
