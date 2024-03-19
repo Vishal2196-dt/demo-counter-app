@@ -37,12 +37,7 @@ jobs:
         run: mvn clean package sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-      - name: Test Network Connectivity with Temporary Container
-        run: |
-          docker run --rm alpine ping 172.17.0.2
-
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }
 
       - name: Quality Gate Status
         run: |
