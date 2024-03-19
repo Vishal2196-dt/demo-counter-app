@@ -39,9 +39,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: Ping SonarQube server
+      - name: Test Network Connectivity with Temporary Container
         run: |
-          ping ${{ secrets.SONAR_HOST_URL }}
+          docker run --rm alpine ping 172.17.0.2
+
 
       - name: Quality Gate Status
         run: |
