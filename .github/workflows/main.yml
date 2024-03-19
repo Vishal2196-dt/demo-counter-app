@@ -10,12 +10,12 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17' # Specify your desired Java version here
+          java-version: '11' # Specify your desired Java version here
           distribution: 'adopt' # Use 'adopt' distribution for OpenJDK
 
       - name: Install Maven
@@ -31,7 +31,7 @@ jobs:
         run: mvn verify -DskipTests
 
       - name: Maven Build
-        run: mvn clean install
+        run: mvn clean install -f demo-counter-app/pom.xml
 
       - name: Static Code Analysis with SonarQube
         run: mvn clean package sonar:sonar
