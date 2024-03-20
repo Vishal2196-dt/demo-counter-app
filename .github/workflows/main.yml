@@ -48,7 +48,6 @@ jobs:
              -Dsonar.password=${{ secrets.SONAR_PASSWORD }} \
              -Dsonar.projectKey=com.example:springboot \
              -Dsonar.sources="$SONAR_SOURCES"
-             -Dsonar.tests="$SONAR_TESTS"
              -Dsonar.sources=.
         
 
