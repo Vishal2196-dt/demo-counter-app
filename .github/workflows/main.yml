@@ -42,6 +42,7 @@ jobs:
       - name: Quality Gate Status
         run: |
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
+          mvn sonar:quality-gate -Dsonar.login="${{secrets.SONAR_TOKEN}}" -Dsonar.host.url="{{secrets.SONAR_HOST_URL}}"
         
 
       - name: Upload WAR file to Nexus
