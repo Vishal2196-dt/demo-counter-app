@@ -49,9 +49,7 @@ jobs:
              -Dsonar.projectKey=com.example:springboot \
              -Dsonar.sources=${{ secrets.SONAR_SOURCES }} \
              -Dsonar.tests=${{ secrets.SONAR_TESTS }} \
-             -Dsonar.sources=.
-        
-
+            
       - name: Upload WAR file to Nexus
         run: |
           mvn deploy:deploy-file \
