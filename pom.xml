@@ -64,18 +64,36 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repositoryId>maven-releases</repositoryId> <!-- Repository ID from Maven settings -->
-                    <url>http://13.235.245.73:8081/repository/maven-releases/</url> <!-- Nexus URL -->
                     <file>target/Uber.jar</file> <!-- Path to your WAR file -->
                     <groupId>com.example</groupId> <!-- Your project's group ID -->
                     <artifactId>springboot</artifactId> <!-- Your project's artifact ID -->
                     <version>2.0.1-SNAPSHOT</version> <!-- Your project's version -->
-                    <username>admin</username> <!-- Nexus username from GitHub Secrets -->
-                    <password>12345</password>
                     <packaging>jar</packaging> <!-- Packaging type -->
                     <!-- You can specify additional options here -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <!-- Define your repository -->
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        </repository>
+        <!-- If you have a snapshot repository, include it here -->
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <!-- Add server details for authentication -->
+    <servers>
+        <server>
+            <id>maven-releases</id>
+            <username>admin</username> <!-- Replace with your Nexus username -->
+            <password>12345</password> <!-- Replace with your Nexus password -->
+        </server>
+    </servers>
 </project>
