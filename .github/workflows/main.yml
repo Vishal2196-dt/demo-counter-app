@@ -7,6 +7,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          NEXUS_URL: ${{ secrets.NEXUS_URL }}
+          NEXUS_REPOSITORY_ID: ${{ secrets.NEXUS_REPOSITORY_ID }}
 
     steps:
       - name: Checkout Code
@@ -51,13 +56,10 @@ jobs:
              -Dsonar.tests=${{ secrets.SONAR_TESTS }} \
              
       - name: Upload WAR file to Nexus
-        env:
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         run: |
           mvn deploy:deploy-file \
-            -Durl="${{ secrets.NEXUS_URL }}" \
-            -DrepositoryId="${{ secrets.NEXUS_REPOSITORY_ID }}" \
+            -Durl="${NEXUS_URL}" \
+            -DrepositoryId="${NEXUS_REPOSITORY_ID}" \
             -Dfile=target/Uber.jar \
             -DgroupId=com.example \
             -DartifactId=springboot \
