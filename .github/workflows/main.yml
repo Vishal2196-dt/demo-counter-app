@@ -24,6 +24,7 @@ jobs:
         with:
           java-version: '11' # Specify your desired Java version here
           distribution: 'adopt' # Use 'adopt' distribution for OpenJDK
+          cache: maven
 
       - name: Install Maven
         run: |
