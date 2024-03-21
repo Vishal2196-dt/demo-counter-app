@@ -64,8 +64,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repositoryId>${env.NEXUS_REPOSITORY_ID}</repositoryId> <!-- Repository ID from Maven settings -->
-                    <url>${env.NEXUS_URL}</url> <!-- Nexus URL -->
+                    <repositoryId>maven-releases</repositoryId> <!-- Repository ID from Maven settings -->
+                    <url>http://13.235.245.73:8081/repository/maven-releases/</url> <!-- Nexus URL -->
                     <file>target/Uber.jar</file> <!-- Path to your WAR file -->
                     <groupId>com.example</groupId> <!-- Your project's group ID -->
                     <artifactId>springboot</artifactId> <!-- Your project's artifact ID -->
