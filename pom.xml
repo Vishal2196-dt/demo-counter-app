@@ -16,6 +16,21 @@
         <java.version>11</java.version>
         <sonar.host.url>http://13.232.39.155:9000</sonar.host.url>
     </properties>
+    <distributionManagement>
+        <!-- Define your repository -->
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        </repository>
+        <!-- If you have a snapshot repository, include it here -->
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,20 +91,5 @@
             </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <!-- Define your repository -->
-        <repository>
-            <id>maven-releases</id>
-            <name>maven-releases</name>
-            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
-        </repository>
-        <!-- If you have a snapshot repository, include it here -->
-        <snapshotRepository>
-            <id>maven-snapshots</id>
-            <name>maven-snapshots</name>
-            <url>http://13.235.245.73:8081/repository/maven-releases/</url>
-        </snapshotRepository>
-    </distributionManagement>
-    <!-- Add server details for authentication -->
    
 </project>
