@@ -69,6 +69,8 @@
                     <artifactId>springboot</artifactId> <!-- Your project's artifact ID -->
                     <version>2.0.1-SNAPSHOT</version> <!-- Your project's version -->
                     <packaging>jar</packaging> <!-- Packaging type -->
+                    <username>admin</username> <!-- Nexus username from GitHub Secrets -->
+                    <password>12345</password>
                     <!-- You can specify additional options here -->
                 </configuration>
             </plugin>
@@ -91,10 +93,3 @@
     <!-- Add server details for authentication -->
    
 </project>
-<servers>
-        <server>
-            <id>maven-releases</id>
-            <username>admin</username> <!-- Replace with your Nexus username -->
-            <password>12345</password> <!-- Replace with your Nexus password -->
-        </server>
-</servers>
