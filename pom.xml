@@ -89,11 +89,12 @@
         </snapshotRepository>
     </distributionManagement>
     <!-- Add server details for authentication -->
-    <servers>
+   
+</project>
+<servers>
         <server>
             <id>maven-releases</id>
             <username>admin</username> <!-- Replace with your Nexus username -->
             <password>12345</password> <!-- Replace with your Nexus password -->
         </server>
-    </servers>
-</project>
+</servers>
