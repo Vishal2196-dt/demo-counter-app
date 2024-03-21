@@ -4,7 +4,7 @@
                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>nexus-repo</id> <!-- Repository ID -->
+            <id>maven-releases</id> <!-- Repository ID -->
             <username>admin</username> <!-- Nexus username -->
             <password>@183729#</password> <!-- Nexus password -->
         </server>
