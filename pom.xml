@@ -70,6 +70,8 @@
                     <groupId>com.example</groupId> <!-- Your project's group ID -->
                     <artifactId>springboot</artifactId> <!-- Your project's artifact ID -->
                     <version>2.0.1-SNAPSHOT</version> <!-- Your project's version -->
+                    <username>${env.NEXUS_USERNAME}</username> <!-- Nexus username from GitHub Secrets -->
+                    <password>${env.NEXUS_PASSWORD}</password>
                     <packaging>jar</packaging> <!-- Packaging type -->
                     <!-- You can specify additional options here -->
                 </configuration>
