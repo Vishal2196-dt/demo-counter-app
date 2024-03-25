@@ -14,17 +14,17 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
-        <sonar.host.url>http://13.232.39.155:9000</sonar.host.url>
+        <sonar.host.url>http://13.232.117.89:9000</sonar.host.url>
     </properties>
 
     <distributionManagement>
      <repository>
         <id>maven-releases</id>
-        <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        <url>http://3.110.143.101:8081/repository/maven-releases/</url>
      </repository>
      <snapshotRepository>
         <id>maven-snapshots</id>
-        <url>http://13.235.245.73:8081/repository/maven-releases/</url>
+        <url>http://3.110.143.101:8081/repository/maven-releases/</url>
      </snapshotRepository>
     </distributionManagement>
 
@@ -83,7 +83,7 @@
                 </executions>
                 <configuration>
                     <repositoryId>maven-releases</repositoryId> 
-                    <url>http://13.235.245.73:8081/repository/maven-releases/</url> 
+                    <url>http://3.110.143.101:8081/repository/maven-releases/</url> 
                     <file>target/Uber.jar</file> 
                     <groupId>com.example</groupId> 
                     <artifactId>springboot</artifactId> 
