@@ -89,8 +89,8 @@
                     <groupId>com.example</groupId> 
                     <artifactId>springboot</artifactId> 
                     <version>2.0.1-SNAPSHOT</version> 
-                    <username>${{ secrets.NEXUS_USERNAME }}</username> 
-                    <password>${{ secrets.NEXUS_PASSWORD }}</password>
+                    <username>${env.NEXUS_USERNAME}</username> 
+                    <password>${env.NEXUS_PASSWORD}</password>
                     <packaging>jar</packaging> 
                     
                 </configuration>
