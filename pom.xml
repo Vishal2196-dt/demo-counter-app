@@ -15,16 +15,17 @@
     <properties>
         <java.version>11</java.version>
         <sonar.host.url>http://13.232.117.89:9000</sonar.host.url>
+        <nexus.release.url>http://3.110.143.101:8081/repository/maven-releases/</nexus.release.url>
     </properties>
 
     <distributionManagement>
      <repository>
         <id>maven-releases</id>
-        <url>http://3.110.143.101:8081/repository/maven-releases/</url>
+        <url>nexus.release.url</url>
      </repository>
      <snapshotRepository>
-        <id>maven-snapshots</id>
-        <url>http://3.110.143.101:8081/repository/maven-releases/</url>
+        <id>maven-releases</id>
+        <url>nexus.release.url</url>
      </snapshotRepository>
     </distributionManagement>
 
@@ -83,13 +84,13 @@
                 </executions>
                 <configuration>
                     <repositoryId>maven-releases</repositoryId> 
-                    <url>http://3.110.143.101:8081/repository/maven-releases/</url> 
+                    <url>${nexus.release.url}</url> 
                     <file>target/Uber.jar</file> 
                     <groupId>com.example</groupId> 
                     <artifactId>springboot</artifactId> 
                     <version>2.0.1-SNAPSHOT</version> 
-                    <username>admin</username> 
-                    <password>12345</password>
+                    <username>${{ secrets.NEXUS_USERNAME }}</username> 
+                    <password>${{ secrets.NEXUS_PASSWORD }}</password>
                     <packaging>jar</packaging> 
                     
                 </configuration>
